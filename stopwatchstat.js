@@ -1,5 +1,5 @@
 let iconStat = '<svg width="24" height="24" version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g transform="matrix(.58612 0 0 .58612 .73285 .67533)" fill="none" stroke="#000" stroke-miterlimit="3.95" stroke-width="3.4122"><circle cx="11.985" cy="11.985" r="10.604" opacity=".996" stroke-dashoffset="4.1575" stroke-linejoin="round"/><path d="m12.124 5.1411v7.5903h5.1073" stroke-linecap="round" stroke-linejoin="bevel"/></g><path d="m16.471 10.33h5.9785" fill="none" stroke="#000" stroke-linecap="round" stroke-width="2"/><path d="m16.471 14.235h5.9785" fill="none" stroke="#000" stroke-linecap="round" stroke-width="2"/><path d="m2.4809 17.936h19.969" fill="none" stroke="#000" stroke-linecap="round" stroke-width="2"/><path d="m2.4809 21.759h19.969" fill="none" stroke="#000" stroke-linecap="round" stroke-width="2"/></svg>';
-let stopwatchAppId = '3074457358189783211';
+let stopwatchAppId = '_TASK_STOPWATCH_APP_ID_'; // specify the ID here
 
 miro.onReady(
     () => {
