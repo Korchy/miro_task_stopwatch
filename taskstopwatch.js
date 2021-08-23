@@ -8,15 +8,17 @@ let idle = new Date().getTime();
 // style for stop
 let style_stop = {
     shapeType: 7,
-    backgroundColor: '#8FD14F',
+    backgroundColor: '#FAC710',
     borderColor: '#FFFFFF',
+    borderOpacity: 0.0,
     textColor: '#FFFFFF'
 };
 // style for run
 let style_run = {
     shapeType: 7,
-    backgroundColor: '#FAC710',
+    backgroundColor: '#F24726',
     borderColor: '#FFFFFF',
+    borderOpacity: 0.0,
     textColor: '#FFFFFF'
 };
 
@@ -78,7 +80,8 @@ function addStopwatch() {
                 metadata: {
                     [appId]: {
                         subtype: 'STOPWATCH',
-                        running: false
+                        running: false,
+                        text: '00:00:00'
                     }
                 },
             }
@@ -90,16 +93,18 @@ function addStopwatch() {
 
 function changeMode(response, mode) {
     // Change Stopwatch widget mode (RUN / STOP)
-    // style for stop
     let style = mode ? style_run : style_stop;
     response.forEach(function(item) {
+        let textUp = item.metadata[appId].text;
         miro.board.widgets.update(
             {
                 id: item.id,
+                text: textUp,
                 metadata: {
                     [appId]: {
                         subtype: 'STOPWATCH',
-                        running: mode
+                        running: mode,
+                        text: textUp
                     }
                 },
                 style: style
@@ -137,7 +142,14 @@ function updateStopwatchWidgets() {
             forUpdate.push(
                 {
                     id: item.id,
-                    text: timeTxt
+                    text: timeTxt,
+                    metadata: {
+                        [appId]: {
+                            subtype: 'STOPWATCH',
+                            running: true,
+                            text: timeTxt
+                        }
+                    }
                 }
             );
         });
@@ -152,6 +164,9 @@ function updateStopwatchWidgets() {
 
 function incrementTime(timeStr, hours, minutes, seconds) {
     // increment time to 1 sec
+    if(timeStr == '') {
+        timeStr = '00:00:00';
+    }
     let currentTimeArr = timeStr.replace(/(<([^>]+)>)/gi, '').split(':');
     let newHours = Number(currentTimeArr[0]) + hours;
     let newMinutes = Number(currentTimeArr[1]) + minutes;
@@ -181,34 +196,4 @@ function stopTimer() {
     if(timerId) {
         clearInterval(timerId);
     }
-}
-
-function addStatistic() {
-    miro.board.viewport.get().then(function(response) {
-        let centeredX = response.x + response.width / 2;
-        let centeredY = response.y + response.height / 2;
-        
-        
-        miro.board.widgets.create([
-            {
-                type: 'shape',
-                text: '00:00:00',
-                x: centeredX,
-                y: centeredY,
-                width: 100,
-                height: 24,
-                style: {
-                    shapeType: 7
-                },
-                metadata: {
-                    [appId]: {
-                        subtype: 'STOPWATCH',
-                        running: false
-                    }
-                }
-            }
-        ]).then(function(response) {
-            console.log('Added Stopwatch Widget');
-        });
-    });
 }
