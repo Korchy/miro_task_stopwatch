@@ -1,13 +1,16 @@
 # MIRO Task Stopwatch
 
-Stopwatch widgets for "miro"
+Stopwatch widgets for "miro".
 
-Plugins
--
-**taskstopwatch**
+Current version made with SDK v. 2.0.
 
-Web-plugin: Adding stopwatch widgets to the board
+Buttons for adding new timer widgets, start and stop timer widgets and counting all statistic are plased in the same panel.
 
-**stopwatchstat**
+Widget update interval is 10 seconds. Due to miro limits.
 
-Web-plugin: Counting statistic table from all stopwatch widgets on current board
+
+**Old version**
+
+Old version of the plugin, made with SDK 1.1, is in the "sdk 1.1" folder.
+
+At present this SDK version is deprecated.

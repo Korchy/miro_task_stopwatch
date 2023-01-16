@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <script src="https://miro.com/app/static/sdk/v2/miro.js"></script>
+    <script id="stopvatchjs"></script>
+    <link rel="stylesheet" id="stopvatchcss">
+    <script>
+        document.getElementById('stopvatchjs').src = '/miro/taskstopwatch2panel.js' + '?v=' + Date.now();
+        document.getElementById('stopvatchcss').href = '/miro/taskstopwatch2panel.css' + '?v=' + Date.now();
+    </script>
+</head>
+<body>
+    <div class="image_button">
+        <span class="v_align"></span><img src="img/taskstopwatch.svg" width="24" onclick="addStopwatch()">
+    </div>
+    <div class="image_button">
+        <span class="v_align"></span><img src="img/play.svg" width="24" onclick="startStopwatch()">
+    </div>
+    <div class="image_button">
+        <span class="v_align"></span><img src="img/statistic.svg" width="24" onclick="stopwatchStatistic()">
+    </div>
+    <div class="image_button">
+        <span class="v_align"></span><img src="img/stop.svg" width="24" onclick="stopStopwatch()">
+    </div>
+</body>
+</html>

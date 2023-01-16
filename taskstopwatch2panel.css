@@ -1,0 +1,24 @@
+.image_button {
+    /* border: 1px solid #eaeaea; */
+    /* border-radius: 2px; */
+    /* box-shadow: 2px 2px 2px -1px rgb(0 0 0 / 15%); */
+    background: white;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    padding: 2px;
+    margin: 0.5em;
+    width: 9.5em;
+    /* height: 6em; */
+    height: 9.5em;
+}
+.v_align{
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+.image_button img {
+    width: 90%;
+    height: 90%;
+    vertical-align: middle;
+}
