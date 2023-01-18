@@ -15,7 +15,8 @@ let style_run = {
 
 const { board } = window.miro;
 
-function addStopwatch() {
+function addStopwatch(running = false) {
+    // add new counter widget with mode from parameter
     board.viewport.get().then(function(response) {
         let centeredX = response.x + response.width / 2;
         let centeredY = response.y + response.height / 2;
@@ -26,15 +27,13 @@ function addStopwatch() {
             y: centeredY,
             width: 100,
             height: 24,
-            style: style_stop,
+            style: (running ? style_run : style_stop),
         }).then(function(response) {
             // set metadata
             response.setMetadata('stopwatch', {
                 // subtype: 'STOPWATCH',
-                running: false,
-                // content: '00:00:00'
+                running: running,
             }).then(function(response2) {
-                // console.log(response, responce2);
                 console.log('Added Stopwatch Widget');
             });
         });
@@ -50,19 +49,54 @@ function stopStopwatch() {
 }
 
 function changeMode(mode) {
+    // change mode - pressed 'start' or 'stop' buttons on the panel by the user
     board.getSelection().then(function(items) {
-        items.forEach((item) => {
-            item.getMetadata('stopwatch').then(function(metadata) {
-                // get only items with the "stopwatch" metadata && !mode
-                if(metadata && metadata.running != mode) {
-                    item.setMetadata('stopwatch', {
-                        running: mode,
-                    }).then(function() {
-                        item.style = (mode ? style_run : style_stop);
-                        item.sync();
-                    });
-                };
+        if(items.length > 0) {
+            // if selection - only for selection
+            items.forEach((item) => {
+                item.getMetadata('stopwatch').then(function(metadata) {
+                    // get only items with the "stopwatch" metadata && !mode
+                    if(metadata && metadata.running != mode) {
+                        item.setMetadata('stopwatch', {
+                            running: mode,
+                        }).then(function() {
+                            item.style = (mode ? style_run : style_stop);
+                            item.sync();
+                        });
+                    };
+                });
             });
+        } else {
+            // if no selection - add new || stop all
+            if(mode) {
+                // start with no selection - add new counter in run mode
+                addStopwatch(true);
+            } else {
+                // stop with no selection - stop all running widgets
+                stopAll();
+            }
+        }
+    });
+}
+
+async function stopAll() {
+    // stop all running widgets
+    let items = await board.get(
+        {
+            type: 'shape'
+        }
+    );
+    items.forEach(function(item) {
+        item.getMetadata('stopwatch').then(function(metadata) {
+            if(metadata && metadata.running == true) {
+                // all running widgets
+                item.setMetadata('stopwatch', {
+                    running: false,
+                }).then(function() {
+                    item.style = style_stop;
+                    item.sync();
+                });
+            };
         });
     });
 }
@@ -157,7 +191,7 @@ function stopwatchStatisticTotal(summ, row, centeredX, centeredY, frameIds) {
         frameIds.push(text_item.id);
         // add frame
         board.createFrame({
-            title: 'Stopwatch Statistic',
+            title: 'Timede Statistic',
             style: {
                 fillColor: '#ffffff',
             },

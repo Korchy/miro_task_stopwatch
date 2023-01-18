@@ -1,5 +1,5 @@
-let timerId;
-let idle = new Date().getTime();
+var timerId2;
+var idle2 = new Date().getTime();
 // style for stop
 let style_stop = {
     fillColor: '#FAC710',
@@ -38,7 +38,7 @@ function updateStopwatchWidgets() {
     ).then(function(items) {
         // count idle time
         let now = new Date().getTime();
-        let delta = now - idle; // delta in mikroseconds
+        let delta = now - idle2; // delta in mikroseconds
         let delta_modulo = delta % 1000;
         delta -= delta_modulo;
         delta /= 1000;  // delta in seconds
@@ -67,7 +67,7 @@ function updateStopwatchWidgets() {
             });
         });
         // change idle
-        idle = now - delta_modulo;
+        idle2 = now - delta_modulo;
     });
 }
 
@@ -97,13 +97,13 @@ function incrementTime(timeStr, hours, minutes, seconds) {
 
 function startTimer() {
     // Start timer loop
-    timerId = setInterval(updateStopwatchWidgets, 10000);
+    timerId2 = setInterval(updateStopwatchWidgets, 10000);
 }
 
 function stopTimer() {
     // Stop timer loop
-    if(timerId) {
-        clearInterval(timerId);
+    if(timerId2) {
+        clearInterval(timerId2);
     }
 }
 
