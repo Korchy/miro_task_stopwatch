@@ -130,7 +130,7 @@ async function stopwatchStatistic() {
                 ).then(function(connectors) {
                     connectors.forEach(function(connector) {
                         // if this connector is for widget
-                        if(connector.end.item == item.id) {
+                        if(connector.end && connector.end.item == item.id) {
                             connected = true;
                             // get source item
                             board.getById(connector.start.item).then(function(start_item) {
